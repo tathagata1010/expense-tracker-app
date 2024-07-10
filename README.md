@@ -59,32 +59,65 @@ This Spring Boot-based authentication service secures user login and registratio
     }
     ```
 
-### Sample `application.yml` Configuration
-```yaml
-spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/your_database
-    username: your_username
-    password: your_password
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+### Gradle Build Configuration
+Here is the `build.gradle` file to configure your Gradle project:
 
-jwt:
-  secret: your_jwt_secret
-  expiration: 3600 # Access token expiration in seconds
-  refresh_expiration: 86400 # Refresh token expiration in seconds
+```gradle
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
 
-server:
-  port: 9898
+group = 'org.expenseTracker'
+version = '1.0-SNAPSHOT'
 
-spring.kafka:
-  producer:
-    bootstrap-servers: 192.168.56.101:9092
-    value-serializer: org.expenseTracker.authService.serializer.UserDetailsSerializer
-  topic-json:
-    name: user_service
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.1.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.modelmapper:modelmapper:3.2.0'
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation 'org.springframework.kafka:spring-kafka:3.1.1'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
 ```
 
 ### Running the Application
@@ -96,8 +129,8 @@ spring.kafka:
 
 2. **Build and Run**:
     ```sh
-    mvn clean install
-    mvn spring-boot:run
+    ./gradlew clean build
+    ./gradlew bootRun
     ```
 
 ### License
