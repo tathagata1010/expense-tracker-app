@@ -1,4 +1,6 @@
-### AuthService for Expense Tracker Application
+###### Expense Tracker Application
+
+#### AuthService for Expense Tracker Application
 
 This Spring Boot-based authentication service secures user login and registration using JWT tokens, handling both access and refresh tokens.
 
@@ -134,7 +136,7 @@ test {
     ```
 
 
-### User Service for Expense Tracker Application
+#### User Service for Expense Tracker Application
 
 The User Service handles user management, including user creation, updates, and retrieval. It integrates with Kafka for consuming user events and MySQL for data persistence.
 
