@@ -46,7 +46,7 @@ public class TokenController {
     public JwtResponseDTO responseToken(@RequestBody RefreshTokenDTO refreshTokenDTO){
         return  refreshTokenService.findByRefreshToken(refreshTokenDTO.getToken()).map(refreshTokenService::verifyExpiration).
                 map(RefreshToken::getUserInfo).map(userInfo -> {
-                    String accessToken = jwtService.GenerateToken(userInfo.getUserName());
+                    String accessToken = jwtService.GenerateToken(userInfo.getUsername());
                     return JwtResponseDTO.builder().accessToken(accessToken).token(refreshTokenDTO.getToken()).build();
                 }).orElseThrow(()->new RuntimeException("Refresh Token not found!"));
 

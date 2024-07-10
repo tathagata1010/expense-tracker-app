@@ -29,13 +29,14 @@ public class AuthController {
 
     @PostMapping("auth/v1/signup")
     public ResponseEntity SignUp(@RequestBody UserInfoDto userInfoDto){
+        System.out.println(userInfoDto+" User info dto");
         try{
             Boolean isSignedUp=userDetailService.signupUser(userInfoDto);
             if(Boolean.FALSE.equals(isSignedUp)){
                 return new ResponseEntity<>("User Already Exists", HttpStatus.BAD_REQUEST);
             }
-            RefreshToken refreshToken=refreshTokenService.createRefreshToken(userInfoDto.getUserName());
-            String jwtToken=jwtService.GenerateToken(userInfoDto.getUserName());
+            RefreshToken refreshToken=refreshTokenService.createRefreshToken(userInfoDto.getUsername());
+            String jwtToken=jwtService.GenerateToken(userInfoDto.getUsername());
             return  new ResponseEntity<>(JwtResponseDTO.builder().accessToken(jwtToken).token(refreshToken.getRefreshToken()).build(),HttpStatus.OK);
         }
         catch (Exception e){
