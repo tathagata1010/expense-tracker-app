@@ -1,19 +1,29 @@
 package org.expenseTracker.authService.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Data;
+import lombok.*;
 import org.expenseTracker.authService.entities.UserInfo;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-@Data
-public class UserInfoDto extends UserInfo {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class UserInfoDto extends UserInfo
+{
 
-    private String email;
-    @JsonProperty("username")
-    private String userName;
-    private String password;
+    @NonNull
+    private String firstName; // first_name
+
+    @NonNull
+    private String lastName; //last_name
+
+
     private Long phoneNumber;
+
+    private String email; // email
 
 }
