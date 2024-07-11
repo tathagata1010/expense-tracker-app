@@ -4,6 +4,10 @@
 
 This Spring Boot-based authentication service secures user login and registration using JWT tokens, handling both access and refresh tokens.
 
+### LLD
+<img width="1396" alt="Untitled" src="https://github.com/tathagata1010/expense-tracker-app/assets/53346012/f2c40266-2956-474a-ad13-ec300aa02c82">
+
+
 #### Key Features:
 - **User Authentication**: Secure login and registration.
 - **JWT Tokens**: Access and refresh tokens for session management.
